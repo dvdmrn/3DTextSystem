@@ -23,7 +23,7 @@ public class TextCore : MonoBehaviour {
 
 
 	void Start () {
-		print(mat);
+		// print(mat);
 		origin = transform.position;
 		characters = Resources.LoadAll<GameObject>("alphanumeric");
 
@@ -58,26 +58,29 @@ public class TextCore : MonoBehaviour {
 		{
 			charIndex = LookupText(txt[i]);
 			txtArray[i] = charIndex;
-			print("found: "+charIndex);
+			// print("found: "+charIndex);
 			// instantiates characters
+			if (txt[i] != ' '){
 			GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), Quaternion.identity);
 			instantiatedLetters[i] = c;
 			c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
-			
-
 			// wavy motion
-			if (waveMotion){
-				c.AddComponent<WaveMotion>();
-				WaveMotion wm = c.GetComponent<WaveMotion>();
+				if (waveMotion){
+					// print("found space");
+					c.AddComponent<WaveMotion>();
+					WaveMotion wm = c.GetComponent<WaveMotion>();
 				
-				// set parameters
-				wm.offset = offset*-1;
-				wm.amplitude = waveAmplitude;
-				wm.speed = waveSpeed;
+					// set parameters
+					wm.offset = offset*-1;
+					wm.amplitude = waveAmplitude;
+					wm.speed = waveSpeed;
 
-				offset += 0.5f; 
 
+				}
 			}
+			offset += 0.5f; 
+
+			
 			lastX = lastX+kerning;
 		}
 	}
@@ -100,7 +103,7 @@ public class TextCore : MonoBehaviour {
 			int newCharIndex = LookupText(newText[i]);	
 			if (textRepresentation[i] != newCharIndex){
 				textRepresentation[i] = newCharIndex;
-				UpdateMesh(i,newCharIndex);
+				UpdateMesh(i,newCharIndex);	
 
 			}	
 		}
