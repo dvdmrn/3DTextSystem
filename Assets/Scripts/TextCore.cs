@@ -33,13 +33,11 @@ public class TextCore : MonoBehaviour {
 			mat = new Material(Shader.Find("Standard"));
 		}
 
+		// for text replacement
 		textRepresentation = new int[text.Length];
 		instantiatedLetters = new GameObject[text.Length];
 
 		ParseText(text.ToUpper(),textRepresentation);
-
-		// UpdateMesh(4,40);
-
 	}
 	
 	void ParseText(string txt, int[] txtArray){
@@ -61,7 +59,7 @@ public class TextCore : MonoBehaviour {
 			// print("found: "+charIndex);
 			// instantiates characters
 			if (txt[i] != ' '){
-			GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), Quaternion.identity);
+			GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), Quaternion.identity, this.transform);
 			instantiatedLetters[i] = c;
 			c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
 			// wavy motion
@@ -86,6 +84,8 @@ public class TextCore : MonoBehaviour {
 	}
 
 	public void editText(string newText){
+		// use editText if the two strings are the same length
+
 		newString = new int[newText.Length];
 		for (int i=0; i<newText.Length; i++){
 			int newCharIndex = LookupText(newText[i]);
@@ -107,6 +107,18 @@ public class TextCore : MonoBehaviour {
 
 			}	
 		}
+	}
+
+	public void UpdateText(string newText){
+		for (int i = 0; i < instantiatedLetters.Length; i++)
+		{
+			Destroy(instantiatedLetters[i]);
+		}
+		textRepresentation = new int[newText.Length];
+		instantiatedLetters = new GameObject[newText.Length];
+
+		ParseText(newText.ToUpper(),textRepresentation);
+
 	}
 
 	void UpdateMesh(int index, int newChar){
