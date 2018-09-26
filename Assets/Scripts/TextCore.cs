@@ -3,23 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TextCore : MonoBehaviour {
-	private GameObject[] characters;
 	public string text;
 	public float kerning = 1f;
 	public Vector3 origin;
-	public Material mat = new Material(Shader.Find("Standard"));
+	public Material mat;
 	public bool waveMotion = false;
 	public float waveSpeed = 1f;
 	public float waveAmplitude = 0.5f;	
 	private float offset = 0;
 
+	public GameObject[] characters; // contains references to prefabs of all characters
+
+	// for editing text
+	private int[] textRepresentation;
+	private int[] newString;
+	private GameObject[] instantiatedLetters; // array of references to letters 
+
+
+
+
 	void Start () {
 		print(mat);
+		origin = transform.position;
 		characters = Resources.LoadAll<GameObject>("alphanumeric");
-		ParseText(text.ToUpper());
+
+		// assigning default material here because cannot make calls
+		// to Shader.Find outside of functions
+		if (mat == null){
+			mat = new Material(Shader.Find("Standard"));
+		}
+
+		textRepresentation = new int[text.Length];
+		instantiatedLetters = new GameObject[text.Length];
+
+		ParseText(text.ToUpper(),textRepresentation);
+
+		// UpdateMesh(4,40);
+
 	}
 	
-	void ParseText(string txt){
+	void ParseText(string txt, int[] txtArray){
+		// instantiates .obj letters based off strings
+		// txt := the string to instantiate
+		// txtArray := an int index representation of the text for later editing
+
+
 		int charIndex;
 		float oX = origin.x;
 		float oY = origin.y;
@@ -29,14 +57,15 @@ public class TextCore : MonoBehaviour {
 		for (int i = 0; i < txt.Length; i++)
 		{
 			charIndex = LookupText(txt[i]);
+			txtArray[i] = charIndex;
 			print("found: "+charIndex);
 			// instantiates characters
 			GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), Quaternion.identity);
+			instantiatedLetters[i] = c;
 			c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
 			
-			// Material mat = c.GetComponentInChildren<Renderer>().material;
-			// print(mat);
-			// mat = material;
+
+			// wavy motion
 			if (waveMotion){
 				c.AddComponent<WaveMotion>();
 				WaveMotion wm = c.GetComponent<WaveMotion>();
@@ -51,6 +80,35 @@ public class TextCore : MonoBehaviour {
 			}
 			lastX = lastX+kerning;
 		}
+	}
+
+	public void editText(string newText){
+		newString = new int[newText.Length];
+		for (int i=0; i<newText.Length; i++){
+			int newCharIndex = LookupText(newText[i]);
+			if (textRepresentation[i] != newCharIndex){
+				textRepresentation[i] = newCharIndex;
+				UpdateMesh(i,newCharIndex);
+
+			}
+		}
+	}
+
+	public void addText(string newText){
+		for (int i = 0; i < newText.Length; i++)
+		{
+			int newCharIndex = LookupText(newText[i]);	
+			if (textRepresentation[i] != newCharIndex){
+				textRepresentation[i] = newCharIndex;
+				UpdateMesh(i,newCharIndex);
+
+			}	
+		}
+	}
+
+	void UpdateMesh(int index, int newChar){
+		Mesh newMesh = characters[newChar].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
+		instantiatedLetters[index].transform.GetChild(0).GetComponent<MeshFilter>().mesh = newMesh;
 	}
 
 	int LookupText(char c){
@@ -110,6 +168,8 @@ public class TextCore : MonoBehaviour {
 					return 53;
 				case 'Z':
 					return 54;
+				case '#':
+					return 20;
 				default:
 					return 25;
 			}					
