@@ -59,9 +59,9 @@ public class TextCore : MonoBehaviour {
 			// print("found: "+charIndex);
 			// instantiates characters
 			if (txt[i] != ' '){
-			GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), Quaternion.identity, this.transform);
-			instantiatedLetters[i] = c;
-			c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
+				GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), transform.rotation, this.transform);
+				instantiatedLetters[i] = c;
+				c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
 			// wavy motion
 				if (waveMotion){
 					// print("found space");
