@@ -12,7 +12,7 @@ public class WaveMotion : MonoBehaviour {
 	private float zPos;
 	// Use this for initialization
 	void Start () {
-		Vector3 org = transform.position;
+		Vector3 org = transform.localPosition;
 		xPos = org.x;
 		yPos = org.y;
 		zPos = org.z;
