@@ -9,10 +9,12 @@ public class TextCore : MonoBehaviour {
 	public Material mat;
 	public bool waveMotion = false;
 	public float waveSpeed = 1f;
+	public enum WaveDirection {x,y,z};
+	public WaveDirection waveDirection = WaveDirection.y;
 	public float waveAmplitude = 0.5f;	
 	private float offset = 0;
 
-	public GameObject[] characters; // contains references to prefabs of all characters
+	private GameObject[] characters; // contains references to prefabs of all characters
 
 	// for editing text
 	private int[] textRepresentation;
@@ -67,7 +69,11 @@ public class TextCore : MonoBehaviour {
 					// print("found space");
 					c.AddComponent<WaveMotion>();
 					WaveMotion wm = c.GetComponent<WaveMotion>();
-				
+
+					wm.setDirection(waveDirection);
+
+
+
 					// set parameters
 					wm.offset = offset*-1;
 					wm.amplitude = waveAmplitude;
