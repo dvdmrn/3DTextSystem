@@ -14,7 +14,7 @@ public class TextCore : MonoBehaviour {
 	public float waveAmplitude = 0.5f;	
 	private float offset = 0;
 
-	private GameObject[] characters; // contains references to prefabs of all characters
+	public GameObject[] characters; // contains references to prefabs of all characters
 
 	// for editing text
 	private int[] textRepresentation;
@@ -191,6 +191,14 @@ public class TextCore : MonoBehaviour {
 					return 54;
 				case '#':
 					return 20;
+				case '.':
+					return 23;
+				case ':':
+					return 13;
+				case '\'':
+					return 10;
+				case ',':
+					return 14;
 				default:
 					return 25;
 			}					
