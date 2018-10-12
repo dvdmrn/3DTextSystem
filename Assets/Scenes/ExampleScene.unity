@@ -265,6 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838491799}
   - component: {fileID: 838491798}
+  - component: {fileID: 838491800}
   m_Layer: 0
   m_Name: 3DText
   m_TagString: Untagged
@@ -283,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628b5e21c8481984c8f8736771f78fb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: heyo ,,,:::''' .....
+  text: hihi0000112
   kerning: 0.8
   origin: {x: -8.89, y: 0, z: 0}
   mat: {fileID: 0}
@@ -305,3 +306,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &838491800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 838491797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697b6286e112fbb4993c244d449e557e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

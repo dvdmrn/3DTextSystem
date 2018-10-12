@@ -14,12 +14,12 @@ public class TextCore : MonoBehaviour {
 	public float waveAmplitude = 0.5f;	
 	private float offset = 0;
 
-	public GameObject[] characters; // contains references to prefabs of all characters
+	private GameObject[] characters; // contains references to prefabs of all characters
 
 	// for editing text
 	private int[] textRepresentation;
 	private int[] newString;
-	private GameObject[] instantiatedLetters; // array of references to letters 
+	public GameObject[] instantiatedLetters; // array of references to letters 
 
 
 
@@ -42,6 +42,19 @@ public class TextCore : MonoBehaviour {
 		ParseText(text.ToUpper(),textRepresentation);
 	}
 	
+	public void GetInstantiatedLetters(){
+		int i = 0;
+		print("instantiated letters len: "+instantiatedLetters.Length);
+		print("children: "+transform.childCount);
+
+		instantiatedLetters = new GameObject[transform.childCount];
+		foreach (GameObject child in transform)
+		{
+			print("Child: "+child);
+			instantiatedLetters[i] = child;
+			i += 1;
+		}
+	}
 	void ParseText(string txt, int[] txtArray){
 		// instantiates .obj letters based off strings
 		// txt := the string to instantiate
@@ -116,9 +129,10 @@ public class TextCore : MonoBehaviour {
 	}
 
 	public void UpdateText(string newText){
-		for (int i = 0; i < instantiatedLetters.Length; i++)
+
+		for (int i = 0; i < this.instantiatedLetters.Length; i++)
 		{
-			Destroy(instantiatedLetters[i]);
+			Destroy(this.instantiatedLetters[i]);
 		}
 		textRepresentation = new int[newText.Length];
 		instantiatedLetters = new GameObject[newText.Length];
@@ -132,7 +146,7 @@ public class TextCore : MonoBehaviour {
 		instantiatedLetters[index].transform.GetChild(0).GetComponent<MeshFilter>().mesh = newMesh;
 	}
 
-	int LookupText(char c){
+		int LookupText(char c){
 		if (c < '0' || c > '9')
         {
 		switch (c)
@@ -199,6 +213,8 @@ public class TextCore : MonoBehaviour {
 					return 10;
 				case ',':
 					return 14;
+				case '$':
+					return 16;
 				default:
 					return 25;
 			}					
@@ -211,8 +227,5 @@ public class TextCore : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
