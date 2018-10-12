@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628b5e21c8481984c8f8736771f78fb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: hihi0000112
+  text: hihiabc8800
   kerning: 0.8
   origin: {x: -8.89, y: 0, z: 0}
   mat: {fileID: 0}
@@ -292,7 +292,7 @@ MonoBehaviour:
   waveSpeed: 1
   waveDirection: 1
   waveAmplitude: 0.5
-  characters: []
+  instantiatedLetters: []
 --- !u!4 &838491799
 Transform:
   m_ObjectHideFlags: 0
@@ -317,3 +317,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697b6286e112fbb4993c244d449e557e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 0}

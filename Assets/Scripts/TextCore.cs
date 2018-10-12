@@ -104,14 +104,18 @@ public class TextCore : MonoBehaviour {
 
 	public void editText(string newText){
 		// use editText if the two strings are the same length
-
+		newText = newText.ToUpper();
 		newString = new int[newText.Length];
 		for (int i=0; i<newText.Length; i++){
-			int newCharIndex = LookupText(newText[i]);
-			if (textRepresentation[i] != newCharIndex){
-				textRepresentation[i] = newCharIndex;
-				UpdateMesh(i,newCharIndex);
-
+			if(newText[i]==' '){
+				clearMesh(i);
+			}
+			else{
+				int newCharIndex = LookupText(newText[i]);
+				if (textRepresentation[i] != newCharIndex){
+					textRepresentation[i] = newCharIndex;
+					UpdateMesh(i,newCharIndex);
+				}
 			}
 		}
 	}
@@ -144,6 +148,11 @@ public class TextCore : MonoBehaviour {
 	void UpdateMesh(int index, int newChar){
 		Mesh newMesh = characters[newChar].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
 		instantiatedLetters[index].transform.GetChild(0).GetComponent<MeshFilter>().mesh = newMesh;
+	}
+
+	void clearMesh(int index){
+		instantiatedLetters[index].transform.GetChild(0).GetComponent<MeshFilter>().mesh.Clear();
+
 	}
 
 		int LookupText(char c){

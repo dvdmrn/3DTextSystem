@@ -8,6 +8,8 @@ public class ChangeText : MonoBehaviour {
 	void Start () {
 		text = GetComponent<TextCore>();
 		Invoke("EditText",2f);
+		Invoke("EditText2",4f);
+
 	}
 	
 	void EditText(){
@@ -15,7 +17,11 @@ public class ChangeText : MonoBehaviour {
 			print("text obj null");
 		}
 		else{
-			text.editText("HICIB787899");
+			text.editText("HICIB  7899");
 		}
+	}
+
+	void EditText2(){
+		text.editText("XYZ1234OPGX");
 	}
 }
