@@ -39,7 +39,7 @@ public class TextCore : MonoBehaviour {
 		textRepresentation = new int[text.Length];
 		instantiatedLetters = new GameObject[text.Length];
 
-		ParseText(text.ToUpper());
+		ParseText(text.ToUpper(),textRepresentation);
 	}
 	
 	public void GetInstantiatedLetters(){
@@ -55,13 +55,13 @@ public class TextCore : MonoBehaviour {
 			i += 1;
 		}
 	}
-	void ParseText(string txt){
+	void ParseText(string txt, int[] textRepresentation){
 		// instantiates .obj letters based off strings
 		// txt := the string to instantiate
 		// txtArray := an int index representation of the text for later editing
 
-		textRepresentation = new int[text.Length];
-		instantiatedLetters = new GameObject[text.Length];
+		// textRepresentation = new int[text.Length];
+		// instantiatedLetters = new GameObject[text.Length];
 
 
 		int charIndex;
@@ -145,7 +145,7 @@ public class TextCore : MonoBehaviour {
 		}
 		textRepresentation = new int[newText.Length];
 		instantiatedLetters = new GameObject[newText.Length];
-		ParseText(newText.ToUpper());
+		ParseText(newText.ToUpper(),textRepresentation);
 
 	}
 
