@@ -76,10 +76,13 @@ public class TextCore : MonoBehaviour {
 			textRepresentation[i] = charIndex;
 			// print("found: "+charIndex);
 			// instantiates characters
-			if (txt[i] != ' '){
 				GameObject c = Instantiate(characters[charIndex], new Vector3(lastX, oY, oZ), transform.rotation, this.transform);
 				instantiatedLetters[i] = c;
 				c.transform.GetChild(0).GetComponent<Renderer>().material = mat;
+				if (txt[i] == ' '){
+					clearMesh(i);
+				}
+				
 			// wavy motion
 				if (waveMotion){
 					// print("found space");
@@ -97,7 +100,6 @@ public class TextCore : MonoBehaviour {
 
 
 				}
-			}
 			offset += 0.5f; 
 
 			
@@ -143,7 +145,6 @@ public class TextCore : MonoBehaviour {
 		}
 		textRepresentation = new int[newText.Length];
 		instantiatedLetters = new GameObject[newText.Length];
-
 		ParseText(newText.ToUpper());
 
 	}
