@@ -39,7 +39,7 @@ public class TextCore : MonoBehaviour {
 		textRepresentation = new int[text.Length];
 		instantiatedLetters = new GameObject[text.Length];
 
-		ParseText(text.ToUpper(),textRepresentation);
+		ParseText(text.ToUpper());
 	}
 	
 	public void GetInstantiatedLetters(){
@@ -55,10 +55,13 @@ public class TextCore : MonoBehaviour {
 			i += 1;
 		}
 	}
-	void ParseText(string txt, int[] txtArray){
+	void ParseText(string txt){
 		// instantiates .obj letters based off strings
 		// txt := the string to instantiate
 		// txtArray := an int index representation of the text for later editing
+
+		textRepresentation = new int[text.Length];
+		instantiatedLetters = new GameObject[text.Length];
 
 
 		int charIndex;
@@ -70,7 +73,7 @@ public class TextCore : MonoBehaviour {
 		for (int i = 0; i < txt.Length; i++)
 		{
 			charIndex = LookupText(txt[i]);
-			txtArray[i] = charIndex;
+			textRepresentation[i] = charIndex;
 			// print("found: "+charIndex);
 			// instantiates characters
 			if (txt[i] != ' '){
@@ -141,7 +144,7 @@ public class TextCore : MonoBehaviour {
 		textRepresentation = new int[newText.Length];
 		instantiatedLetters = new GameObject[newText.Length];
 
-		ParseText(newText.ToUpper(),textRepresentation);
+		ParseText(newText.ToUpper());
 
 	}
 
